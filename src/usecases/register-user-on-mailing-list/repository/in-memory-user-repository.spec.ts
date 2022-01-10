@@ -5,10 +5,10 @@ describe('In memory User repository', () => {
   test('should return null if user is not found', async () => {
     // given
     const users: UserData[] = []
-    const userRepo = new InMemoryUserRepository(users)
+    const sut = new InMemoryUserRepository(users)
 
     // when
-    const user = await userRepo.findUserByEmail('any@email.com')
+    const user = await sut.findUserByEmail('any@email.com')
 
     // then
     expect(user).toBeNull()
@@ -19,11 +19,11 @@ describe('In memory User repository', () => {
     const users: UserData[] = []
     const name = 'any_name'
     const email = 'any@email.com'
-    const userRepo = new InMemoryUserRepository(users)
+    const sut = new InMemoryUserRepository(users)
 
     // when
-    await userRepo.add({ name, email })
-    const user = await userRepo.findUserByEmail(email)
+    await sut.add({ name, email })
+    const user = await sut.findUserByEmail(email)
 
     // then
     expect(user.name).toBe(name)
@@ -35,10 +35,10 @@ describe('In memory User repository', () => {
       { name: 'any_name', email: 'any@email.com' },
       { name: 'second_name', email: 'second@email.com' }
     ]
-    const userRepo = new InMemoryUserRepository(users)
+    const sut = new InMemoryUserRepository(users)
 
     // when
-    const returnedUsers = await userRepo.findAllUsers()
+    const returnedUsers = await sut.findAllUsers()
 
     // then
     expect(returnedUsers.length).toBe(2)
